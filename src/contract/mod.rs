@@ -381,7 +381,7 @@ mod contract_signing {
     };
 
     impl<T: Transport> Contract<T> {
-        pub async fn signn<Tk: Tokenizable+Clone>(
+        pub async fn sign<Tk: Tokenizable+Clone>(
             &self,
             func: &str,
             params: Vec<Tk>,
