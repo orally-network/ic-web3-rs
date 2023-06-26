@@ -19,6 +19,10 @@ use serde::{self, Deserialize, Serialize};
 //     pub transform_method_name: Option<String>,
 // }
 
+const HTTP_OUTCALL_PRICE: u128 = 400_000_000;
+const COST_PER_BYTE: u128 = 100_000;
+const BYTES: u128 = 3_355_443_200_000;
+
 #[derive(Clone, Debug)]
 pub struct ICHttpClient {
     pub max_response_bytes: u64,
@@ -76,7 +80,7 @@ impl ICHttpClient {
             },
         };
 
-        match http_request(request).await {
+        match http_request(request, HTTP_OUTCALL_PRICE + (BYTES * COST_PER_BYTE)).await {
             Ok((result,)) => Ok(result.body),
             Err((r, m)) => {
                 let message = format!("The http_request resulted into error. RejectionCode: {r:?}, Error: {m}");
