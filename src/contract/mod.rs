@@ -371,7 +371,9 @@ impl<T: Transport> Contract<T> {
 // #[cfg(feature = "signing")]
 mod contract_signing {
     use std::str::FromStr;
-
+    
+    use ethabi::Token;
+    
     use super::{*, tokens::Tokenizable};
     use crate::{
         api::Accounts,
@@ -432,10 +434,10 @@ mod contract_signing {
         ///
         /// Note this function DOES NOT wait for any confirmations, so there is no guarantees that the call is actually executed.
         /// If you'd rather wait for block inclusion, please use [`signed_call_with_confirmations`] instead.
-        pub async fn signed_call(
+        pub async fn signed_call<Tk: Tokenizable+Clone>(
             &self,
             func: &str,
-            params: impl Tokenize,
+            params: Vec<Tk>,
             options: Options,
             from: String,
             key_info: KeyInfo,
@@ -453,10 +455,10 @@ mod contract_signing {
         //
         // This function will wait for block inclusion of the transaction before returning.
         // If you'd rather just submit transaction and receive it's hash, please use [`signed_call`] instead.
-        pub async fn signed_call_with_confirmations(
+        pub async fn signed_call_with_confirmations<Tk: Tokenizable+Clone>(
             &self,
             func: &str,
-            params: impl Tokenize,
+            params: Vec<Tk>,
             options: Options,
             from: String,
             confirmations: usize,
