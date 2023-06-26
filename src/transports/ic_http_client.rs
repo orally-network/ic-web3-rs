@@ -21,7 +21,7 @@ use serde::{self, Deserialize, Serialize};
 
 const HTTP_OUTCALL_PRICE: u128 = 400_000_000;
 const COST_PER_BYTE: u128 = 100_000;
-const BYTES: u128 = 3_355_443_200_000;
+const BYTES: u128 = 3_200_000;
 
 #[derive(Clone, Debug)]
 pub struct ICHttpClient {
