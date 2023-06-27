@@ -387,6 +387,7 @@ mod accounts_signing {
         // }
 
         pub async fn sign(self, from: String, key_info: KeyInfo, chain_id: u64) -> SignedTransaction {
+            let from = from.replace("0x", "");
             let adjust_v_value = matches!(self.transaction_type.map(|t| t.as_u64()), Some(LEGACY_TX_ID) | None);
 
             let encoded = self.encode(chain_id, None);
